@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dese/Encriptar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.3/pico.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <nav>
+        <h1>a</h1>
+      </nav>
+    </div>
+    <main class="container p-0">
+      <div class="grid">
+        <div>
+          <div class="grid">
+            <div>
+              <textarea
+                placeholder="Ingrese el texto aqui"
+                data-one="text"
+                rows="15"
+                cols="50"
+              ></textarea>
+              <textarea
+                class="d-none"
+                data-one="text-hidden"
+                rows="0"
+                cols="0"
+              ></textarea>
+            </div>
+          </div>
+          <small>(i) Solo letras minúsculas y sin acentos</small>
+          <div class="grid">
+            <div><button data-one="encrypt">Encriptar</button></div>
+            <div>
+              <button data-one="decrypt" class="outline">Desencriptar</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <article class="m-0">
+            <header data-one="header">Ningún mensaje fue encontrado</header>
+            <p data-one="result">
+              Ingresa el texto que desees encriptar o desencriptar.
+            </p>
+            <footer data-one="footer" style="display: none">
+              <button data-one="copy" class="outline">Copiar</button>
+              <small data-one="copy-result" style="display: none;">¡Copiar al portapapeles fue exitoso!</small>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </main>
+    <footer class="text-align-center">
+      Made with ❤️ by <a href="/">Kreisler</a>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
