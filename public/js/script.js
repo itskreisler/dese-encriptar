@@ -45,26 +45,32 @@ const normalize = (function () {
 })();
 const copyTextToClipboard = (text) => {
   if (!navigator.clipboard) {
-    console.error("Async: Could not copy text: ", err);
+    $result_copy_error = $('[data-one="copy-result-error"]');
+    $result_copy_error.style.display = "block";
+    setTimeout(() => {
+      $result_copy_error.style.display = "none";
+    }, 3000);
+    console.error("Async: No se pudo copiar texto: ", err);
     return;
   }
   navigator.clipboard.writeText(text).then(
     function () {
-      console.log("Async: Copying to clipboard was successful!", text);
+      console.log("Async: ¡Copiar Al Portapapeles Fue Exitoso!", text);
     },
     function (err) {
-      console.error("Async: Could not copy text: ", err);
+      console.error("Async: No se pudo copiar texto: ", err);
     }
   );
 };
+const listChart = [
+  { from: /(ai)/g, to: "ai", search: "a" },
+  { from: /(enter)/g, to: "enter", search: "e" },
+  { from: /(imes)/g, to: "imes", search: "i" },
+  { from: /(ober)/g, to: "ober", search: "o" },
+  { from: /(ufat)/g, to: "ufat", search: "u" },
+];
 const fromTo = (x) => {
-  [
-    { from: /[a]/g, to: "ai", search: "a" },
-    { from: /[e]/g, to: "enter", search: "e" },
-    { from: /[i]/g, to: "imes", search: "i" },
-    { from: /[o]/g, to: "ober", search: "o" },
-    { from: /[u]/g, to: "ufat", search: "u" }
-  ].forEach(({ from, to, search }) => {
+  listChart.forEach(({ from, to, search }) => {
     x = x === search ? x.replace(from, to) : x;
   });
   return x;
@@ -77,14 +83,8 @@ const encrypt = (text) => {
   return [text];
 };
 const decrypt = (text) => {
-  [
-    { from: /(ai)/g, to: "a" },
-    { from: /(enter)/g, to: "e" },
-    { from: /(imes)/g, to: "i" },
-    { from: /(ober)/g, to: "o" },
-    { from: /(ufat)/g, to: "u" }
-  ].forEach(({ from, to }) => {
-    text = text.replace(from, to);
+  listChart.forEach(({ from, to }) => {
+    text = text.replace(to, from);
   });
   return [text];
 };
@@ -96,7 +96,7 @@ const render = () => {
     $text_hidden = $('[data-one="text-hidden"]'),
     $btn_encrypt = $('[data-one="encrypt"]'),
     $btn_decrypt = $('[data-one="decrypt"]'),
-    $result_copy = $('[data-one="copy-result"]'),
+    $result_copy_error = $('[data-one="copy-result"]'),
     $btn_copy = $('[data-one="copy"]');
   const textEncrypt = () => {
     const { value } = $text;
@@ -125,12 +125,13 @@ const render = () => {
     textResult("decrypt");
   });
   on("click", $btn_copy, () => {
-    $result_copy.style.display = 'block';
+    $result_copy_error.style.display = "block";
     setTimeout(() => {
-      $result_copy.style.display = 'none';
-    },3000);
+      $result_copy_error.style.display = "none";
+    }, 3000);
     copyTextToClipboard($text_hidden.value);
   });
 };
 
 window.addEventListener("DOMContentLoaded", () => render());
+// @by Kreisler
