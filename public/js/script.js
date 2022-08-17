@@ -108,7 +108,7 @@ const render = () => {
   };
   const textDecrypt = () => {
     const { value } = $text;
-    const [newTextDecrypt] = decrypt(value);
+    const [newTextDecrypt] = decrypt(value.toLowerCase());
     $text_hidden.value = newTextDecrypt;
     return newTextDecrypt;
   };
